@@ -4,6 +4,11 @@ import time
 import lcd160cr
 
 
+lcd= lcd160cr.LCD160CR('X')
+lcd.erase()
+
+pyb.delay(2000)
+
 blue=lcd.rgb(0,0,255)
 yellow=lcd.rgb(255,255,0)
 green=lcd.rgb(0,255,0)
@@ -11,9 +16,6 @@ red=lcd.rgb(255,0,0)
 black=lcd.rgb(0,0,0)
 white=lcd.rgb(255,255,255)
 
-
-lcd= lcd160cr.LCD160CR('X')
-lcd.erase()
 
 accel = pyb.Accel()
 
@@ -60,6 +62,8 @@ while len(coords)>0:
 	pyb.delay(50)
 
 
+pyb.delay(1000)
+
 lcd.set_font(3,scroll=1)
 lcd.set_pos(40,50)
 lcd.write('TURN ME')
@@ -75,12 +79,13 @@ while True:
 		lcd.set_pos(40,50)
 		lcd.write('HAPPY')
 		lcd.set_pos(40,70)
-		lcd.write('BITHDAY')
+		lcd.write('BIRTHDAY')
 		break
 
 while True:
 	light=random.randint(1,4)
 	pyb.LED(light).toggle()
 	pyb.delay(50)
+
 
 
