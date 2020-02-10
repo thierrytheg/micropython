@@ -123,8 +123,8 @@ col={'blue':[0,int(((lcd.h)/4)*1)],'yellow':[int(((lcd.h)/4)*1)+1,int(((lcd.h)/4
 score=[]
 s=0
 lcd.set_font(3,scroll=1)
-while True:
-	#s=s+1
+while s<10:
+	s=s+1
 	lcd.erase()
 	lcd.set_pen(blue,blue)
 	lcd.rect(0,0,lcd.w,int((lcd.h)/4))
