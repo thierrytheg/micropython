@@ -6,7 +6,17 @@ import board
 import adafruit_irremote
 import audioio
 
-
+"""
+#play file from object
+cp.stop_tone()
+cp._speaker_enable.value = True
+with cp._audio_out(board.SPEAKER) as audio:
+    wavefile = audiocore.WaveFile(open('left.wav', "rb"))
+    audio.play(wavefile)
+    while audio.playing:
+        pass
+cp._speaker_enable.value = False
+"""
 """
 #plot acceleromator
 while True:
