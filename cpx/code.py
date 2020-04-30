@@ -7,6 +7,30 @@ import adafruit_irremote
 import audioio
 
 """
+#play from array
+#PLAY FILE FROM ARRAY
+FREQUENCY = 440  # 440 Hz middle 'A'
+SAMPLERATE = 8000  # 8000 samples/second, recommended!
+ 
+# Generate one period of sine wav.
+length = SAMPLERATE // FREQUENCY
+sine_wave = array.array("H", [0] * length)
+for i in range(length):
+    sine_wave[i] = int(math.sin(math.pi * 2 * i / 18) * (2 ** 15) + 2 ** 15)
+
+cp.stop_tone()
+cp._speaker_enable.value = True
+audio = AudioOut(board.SPEAKER)
+sine_wave_sample = audiocore.RawSample(sine_wave)
+audio.play(sine_wave_sample,loop=True)
+
+while audio.playing:
+    pass
+cp._speaker_enable.value = False
+
+
+"""
+"""
 #play file from object
 cp.stop_tone()
 cp._speaker_enable.value = True
