@@ -1,10 +1,9 @@
 from adafruit_circuitplayground import cp
 import time
 import random
-import pulseio
 import board
-import adafruit_irremote
-import audioio
+import audiocore
+import array
 
 """
 #play from array
@@ -16,17 +15,13 @@ SAMPLERATE = 8000  # 8000 samples/second, recommended!
 length = SAMPLERATE // FREQUENCY
 sine_wave = array.array("H", [0] * length)
 for i in range(length):
-    sine_wave[i] = int(math.sin(math.pi * 2 * i / 18) * (2 ** 15) + 2 ** 15)
-
+    sine_wave[i] = int(math.sin(math.pi * 2 * i / 18) * (2 ** 15) + 2 ** 15)        
+    print((sine_wave[i],))
 cp.stop_tone()
 cp._speaker_enable.value = True
-audio = AudioOut(board.SPEAKER)
+audio = cp._audio_out(board.SPEAKER)
 sine_wave_sample = audiocore.RawSample(sine_wave)
-audio.play(sine_wave_sample,loop=True)
-
-while audio.playing:
-    pass
-cp._speaker_enable.value = False
+audio.play(sine_wave_sample,loop=1)
 
 
 """
