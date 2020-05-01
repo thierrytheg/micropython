@@ -4,6 +4,10 @@ import random
 import board
 import audiocore
 import array
+"""
+#fft
+https://github.com/Tschucker/CircuitPython_FFT/blob/master/examples/fft_simpletest.py
+"""
 
 """
 #play from array
