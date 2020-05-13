@@ -63,7 +63,7 @@ while True:
     mic.record(samples, len(samples))
     magnitude = normalized_rms(samples)
     
-    if cp.button_a or magnitude>130::
+    if cp.button_a or magnitude>130:
         for n in range(5):
             full(A4)
             time.sleep(lapse)
