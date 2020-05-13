@@ -24,15 +24,53 @@ A4 = neopixel.NeoPixel(
 lapse=0.25
 
 cp.detect_taps = 1
+
+
+def constrain(value, floor, ceiling):
+    return max(floor, min(value, ceiling))
+
+
+def log_scale(input_value, input_min, input_max, output_min, output_max):
+    normalized_input_value = (input_value - input_min) / (input_max - input_min)
+    return output_min + math.pow(normalized_input_value, 0.630957) * (
+        output_max - output_min
+    )
+
+
+def normalized_rms(values):
+    minbuf = int(sum(values) / len(values))
+    return math.sqrt(
+        sum(float(sample - minbuf) * (sample - minbuf) for sample in values)
+        / len(values)
+    )
+
+
+mic = audiobusio.PDMIn(
+    board.MICROPHONE_CLOCK, board.MICROPHONE_DATA, sample_rate=16000, bit_depth=16
+)
+
+samples = array.array("H", [0] * 160)
+mic.record(samples, len(samples))
+input_floor = normalized_rms(samples) + 10
+
+# Lower number means more sensitive - more LEDs will light up with less sound.
+sensitivity = 500
+input_ceiling = input_floor + sensitivity
+
+peak = 0
+
 while True:
-    if cp.button_a:
+    mic.record(samples, len(samples))
+    magnitude = normalized_rms(samples)
+    
+    if cp.button_a or magnitude>130::
         for n in range(5):
             full(A4)
             time.sleep(lapse)
             blank(A4)
             time.sleep(lapse)
 
-    if cp.button_b:
+    if cp.button_b or 100<magnitude<125:
         for n in range(5):
             full(A2)
             time.sleep(lapse)
@@ -47,7 +85,7 @@ while True:
     else:
         pass
 
-
+        
 
 """
 import time
