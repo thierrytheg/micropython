@@ -40,14 +40,12 @@ while True:
             time.sleep(lapse)
 
     if cp.tapped:
-        cp.play_tone(100, 0.5)
         curr_folder="numbers\\"
         temp=str(int((round(cp.temperature,0))))
         cp.play_file(curr_folder+temp+ ".wav")
 
     else:
         pass
-
 
 
 
